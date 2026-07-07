@@ -14,7 +14,7 @@ const OrderItems = connection.define("orderItems", {
     },
     product_id: {
         type: Sequelize.UUID,
-        allowNull: falsez 
+        allowNull: false
     },
     quantity: {
         type: Sequelize.INTEGER,

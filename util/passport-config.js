@@ -1,7 +1,6 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const Users = require("../models/Users");
-const CreateAccountTokens = require("../models/CreateAccountTokens");
+const { Users, CreateAccountTokens} = require("../models/Associations")
 const {formatTimestamp, getCurrentTimestamp} = require("../util/formatTimestamp");
 const { Op } = require("sequelize");
 

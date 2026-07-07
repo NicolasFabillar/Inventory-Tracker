@@ -15,7 +15,7 @@ const Categories = connection.define("categories", {
     status: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
-        defaultValue: false
+        defaultValue: true
     }
 },
 {

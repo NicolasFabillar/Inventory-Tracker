@@ -16,6 +16,10 @@ const Products = connection.define("products", {
         type: Sequelize.STRING(50),
         allowNull: false
     },
+    created_by: {
+        type: Sequelize.UUID,
+        allowNull: false
+    },
     category_id: {
         type: Sequelize.UUID,
         allowNull: true

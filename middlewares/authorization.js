@@ -25,8 +25,9 @@ module.exports = async (req, res, next) => {
     if (!user) {
       return errorHandler("User token not valid.", 401);
     }
-
+    
     req.userId = decodedToken.userId;
+    req.userRole = decodedToken.userRole;
 
     next();
   } catch (err) {
