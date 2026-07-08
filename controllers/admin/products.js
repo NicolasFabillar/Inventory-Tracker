@@ -77,7 +77,7 @@ exports.updateProduct = async (req, res, next) => {
       errorHandler("Product not found", 404)
     }
 
-    if (name) {
+    if (name && name != product.name) {
       const existingProduct = await Products.findOne({
         where: {
           [Op.and]: [
@@ -93,7 +93,7 @@ exports.updateProduct = async (req, res, next) => {
       }
     }
 
-    if (sku) {
+    if (sku && sku != product.sku ) {
       const existingProduct = await Products.findOne({
         where: {
           [Op.and]: [
@@ -109,12 +109,13 @@ exports.updateProduct = async (req, res, next) => {
       }
     }
 
-    if (quantity) {
-      changeAmount = product.quantity - quantity;
+    if (quantity && quantity != product.quantity) {
+      changeQuantity = quantity - product.quantity;
 
       await ProductMovements.create({
         product_id: productId,
-        change_amount: changeAmount,
+        change_quantity: changeQuantity,
+        quantity_after_change: quantity,
         reason: "correction",
         description: editReason,
         performed_by: userId
@@ -175,7 +176,10 @@ exports.findAllProducts = async (req, res, next) => {
     )
 
     const allProducts = await Products.findAll({
-      where,
+      where: {
+        ...where,
+        status: req.query.status || true
+      },
       limit,
       offset,
       order,

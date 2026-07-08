@@ -12,7 +12,11 @@ const ProductMovements = connection.define("product_movements", {
         type: Sequelize.UUID,
         allowNull: false
     },
-    change_amount: {
+    change_quantity: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
+    quantity_after_change: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
@@ -20,7 +24,11 @@ const ProductMovements = connection.define("product_movements", {
         type: Sequelize.ENUM("sale", "restock", "correction", "refund"),
         allowNull: false
     },
-    reference_id: {
+    order_id: {
+        type: Sequelize.UUID,
+        allowNull: true
+    },
+    refund_id: {
         type: Sequelize.UUID,
         allowNull: true
     },
@@ -31,7 +39,7 @@ const ProductMovements = connection.define("product_movements", {
     description: {
         type: Sequelize.TEXT,
         allowNull: true
-    }
+    },
 }, {
     tableName: "product_movements",
     timestamps: true

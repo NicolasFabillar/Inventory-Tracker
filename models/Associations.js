@@ -28,12 +28,22 @@ Products.belongsTo(Categories, {
 
 ProductMovements.belongsTo(Products, {
     foreignKey: 'product_id',
-    as: 'productMovement',
+    as: 'changedProduct',
 });
 
 Products.hasMany(ProductMovements, {
     foreignKey: 'product_id',
     as: 'movements',
+});
+
+Users.hasMany(ProductMovements, {
+    foreignKey: 'performed_by',
+    as: 'stockMovements'
+});
+
+ProductMovements.belongsTo(Users, {
+    foreignKey: 'performed_by',
+    as: 'performedBy'
 });
 
 module.exports = { 

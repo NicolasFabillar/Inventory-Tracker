@@ -11,7 +11,7 @@ function parseQueryParams(req, allowedSortBy = ["createdAt"], searchFields = ["n
 
     const offset = (parseInt(page) - 1) * parseInt(limit);
 
-    const where = { status: req.query.status || true };
+    const where = { };
 
     if (search) {
         where[Op.or] = searchFields.map(field => ({
