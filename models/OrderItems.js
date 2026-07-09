@@ -19,7 +19,6 @@ const OrderItems = connection.define("orderItems", {
     quantity: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        defaultValue: 1
     },
     price_at_sale: {
         type: Sequelize.DECIMAL(10, 2),
@@ -30,7 +29,7 @@ const OrderItems = connection.define("orderItems", {
         allowNull: false
     },
     status: {
-        type: Sequelize.ENUM("sold","refunded", "partially_refunded"),
+        type: Sequelize.ENUM("sold","refunded", "cancelled",  "partially_refunded"),
         allowNull: false,
         defaultValue: "sold"
     }

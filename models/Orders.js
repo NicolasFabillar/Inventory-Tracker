@@ -23,7 +23,7 @@ const Orders = connection.define("orders", {
     },
     payment_method: {
         type: Sequelize.ENUM("cash", "card", "e-wallet"),
-        allowNull: false
+        allowNull: true
     },
     amount_tendered: {
         type: Sequelize.DECIMAL(10, 2),

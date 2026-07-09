@@ -16,6 +16,14 @@ const Refunds = connection.define("refunds", {
         type: Sequelize.UUID,
         allowNull: false
     },
+    refunded_by: {
+        type: Sequelize.UUID,
+        allowNull: false
+    },
+    refund_quantity: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+    },
     refund_reason: {
         type: Sequelize.TEXT,
         allowNull: true
@@ -26,7 +34,7 @@ const Refunds = connection.define("refunds", {
         defaultValue: 0
     },
     status: {
-        type: Sequelize.ENUM("pending", "approved", "rejected", "completed"),
+        type: Sequelize.ENUM("pending", "approved", "rejected"),
         allowNull: false,
         defaultValue: "pending"
     }

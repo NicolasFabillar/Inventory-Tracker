@@ -19,8 +19,10 @@ router.use("/employee", employeeAccountsRoute);
 
 // all users
 const allAccountsRoute = require("./allUsers/accounts/accounts");
+const allOrdersRoute = require("./allUsers/orders/orders");
 
 router.use("/all", allAccountsRoute);
+router.use("/all/orders", allOrdersRoute);
 
 
 module.exports = router;

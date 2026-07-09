@@ -46,6 +46,67 @@ ProductMovements.belongsTo(Users, {
     as: 'performedBy'
 });
 
+Orders.hasMany(OrderItems, {
+    foreignKey: 'order_id',
+    as: 'orderItems'
+});
+
+OrderItems.belongsTo(Orders, {
+    foreignKey: 'order_id',
+    as: 'order'
+});
+
+Products.hasMany(OrderItems, {
+    foreignKey: 'product_id',
+    as: 'orderItems'
+});
+
+OrderItems.belongsTo(Products, {
+    foreignKey: 'product_id',
+    as: 'orderProduct'
+});
+
+Users.hasMany(Orders, {
+    foreignKey: 'employee_id',
+    as: 'orderCreator'
+});
+
+Orders.belongsTo(Users, {
+    foreignKey: 'employee_id',
+    as: 'orderCreatedBy'
+});
+
+Orders.hasMany(Refunds, {
+    foreignKey: 'order_id',
+    as: 'orderRefund'
+});
+
+Refunds.belongsTo(Orders, {
+    foreignKey: 'order_id',
+    as: 'refund'
+});
+
+OrderItems.hasMany(Refunds, {
+    foreignKey: 'order_item_id',
+    as: 'orderItemRefund'
+});
+
+Refunds.belongsTo(OrderItems, {
+    foreignKey: 'order_item_id',
+    as: 'itemRefund'
+});
+
+Users.hasMany(Refunds, {
+    foreignKey: 'refunded_by',
+    as: 'refundCreator'
+});
+
+Refunds.belongsTo(Users, {
+    foreignKey: 'refunded_by',
+    as: 'refundedBy'
+});
+
+
 module.exports = { 
     Users,
     Products,
