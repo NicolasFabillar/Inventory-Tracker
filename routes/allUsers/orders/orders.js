@@ -6,8 +6,9 @@ const isAuth = require("../../../middlewares/authorization");
 const {
     createOrder,
     payOrder,
-    refundOrder
-} = require("../../../controllers/employee/orders");
+    refundOrder,
+    refundAmount
+} = require("../../../controllers/allUsers/orders");
 
 const router = express.Router();
 
@@ -81,5 +82,10 @@ router.put("/:orderId/refund",
     validation,
     refundOrder
 );
+
+router.get('/:orderId/refundAmount', 
+    isAuth,
+    refundAmount
+)
 
 module.exports = router;

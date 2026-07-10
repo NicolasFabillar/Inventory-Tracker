@@ -148,7 +148,15 @@ exports.refundOrder = async (req, res, next) => {
         errorHandler(`You can only initiate refund once per order`, 403);
     }
 
-    let refundAmount = 0;
+    const refund = await Refunds.findOne({
+        where: {
+            order_id: orderId
+        }
+    })
+
+    if (refund) {
+        errorHandler(`Refund was already initiated for this order`, 403);
+    }
 
     const orderItems = await Promise.all(
         refundItems.map(async (item) => {
@@ -177,9 +185,6 @@ exports.refundOrder = async (req, res, next) => {
                 errorHandler(`You can only initiate refund once per order`, 403);
             }
 
-            const amount = orderItem.price_at_sale * item.quantity
-            refundAmount += amount;
-
             return orderItem;
         })
     );
@@ -194,36 +199,51 @@ exports.refundOrder = async (req, res, next) => {
                 refund_reason: refundReason,
                 refunded_amount: item.price_at_sale * refundItems[index].quantity
             })
-
-            const productMovement = await ProductMovements.create({
-                product_id: item.product_id,
-                change_quantity: refundItems[index].quantity,
-                quantity_after_change: item.orderProduct.quantity + refundItems[index].quantity,
-                reason: "sale",
-                order_id: order.id,
-                performed_by: userId,
-            })
-
-            await item.orderProduct.update({
-                quantity: productMovement.quantity_after_change 
-            })
-
-            await item.update({
-                status:
-                    item.quantity > refundItems[index].quantity
-                    ? "partially_refunded"
-                    : "refunded",
-                }
-            );
         })
     );
 
-    await order.update({
-        status: refundAmount === order.total_amount
-            ? "refunded"
-            : "partially_refunded",
+    return res.status(200).json({ status: true, message: "Please have it approved first"})
+  } catch (err) {  
+    next(err)
+  }
+}
+
+exports.refundAmount = async (req, res, next) => {
+  const { userId, userRole } = req
+  const { customerName, refundItems, refundReason} = req.body
+  const { orderId } = req.params;
+
+  try {
+    const order = await Orders.findByPk(orderId);
+    
+    if (!order) {
+        errorHandler(`Order not found`, 404);
+    }
+
+    const refund = await Refunds.findOne({
+        where: {
+            order_id: orderId
         }
-    );
+    })
+
+    if (!refund) {
+        errorHandler(`Refund not found, please initiate one first`, 404);
+    }
+
+    if (refund.status == "pending") {
+        errorHandler(`Refund not yet approved, please have it approved by an admin first`, 403);
+    }
+
+    if (refund.status == "rejected") {
+        errorHandler(`Refund was rejected`, 403);
+    }
+
+    const refundAmount = await Refunds.sum("refunded_amount", {
+        where: { 
+            order_id: orderId,
+            status: ["approved"]
+        }
+    });
 
     return res.status(200).json({ status: true, refundAmount})
   } catch (err) {  

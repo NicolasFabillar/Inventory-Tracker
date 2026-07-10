@@ -106,6 +106,16 @@ Refunds.belongsTo(Users, {
     as: 'refundedBy'
 });
 
+Users.hasMany(Refunds, {
+    foreignKey: 'approved_by',
+    as: 'refundApprover'
+});
+
+Refunds.belongsTo(Users, {
+    foreignKey: 'approved_by',
+    as: 'approvedBy'
+});
+
 
 module.exports = { 
     Users,

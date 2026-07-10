@@ -6,11 +6,13 @@ const adminAccountsRoute = require("./admin/accounts/accounts");
 const adminCategoriesRoute = require("./admin/categories/categories");
 const adminProductsRoute = require("./admin/products/products");
 const adminProductMovementsRoute = require("./admin/products/productMovements");
+const adminOrdersRoute = require("./admin/orders/orders");
 
 router.use("/admin", adminAccountsRoute);
 router.use("/admin/categories", adminCategoriesRoute);
 router.use("/admin/products", adminProductsRoute);
 router.use("/admin/products/product-movement", adminProductMovementsRoute);
+router.use("/admin/orders", adminOrdersRoute);
 
 // customers
 const employeeAccountsRoute = require("./employee/accounts/accounts");

@@ -7,7 +7,6 @@ exports.createCategory = async (req, res, next) => {
   const { name } = req.body
 
   try {
-    console.log(req.userRole)
     if (userRole != "Admin") {
         errorHandler("User is not an admin", 403)
     }
@@ -37,6 +36,10 @@ exports.updateCategory = async (req, res, next) => {
   const { name } = req.body
 
   try {
+    if (userRole != "Admin") {
+        errorHandler("User is not an admin", 403)
+    }
+    
     const category = await Categories.findOne({
       where: {
         id: categoryID,

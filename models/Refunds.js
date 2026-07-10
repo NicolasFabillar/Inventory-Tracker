@@ -20,6 +20,10 @@ const Refunds = connection.define("refunds", {
         type: Sequelize.UUID,
         allowNull: false
     },
+    approved_by: {
+        type: Sequelize.UUID,
+        allowNull: true
+    },
     refund_quantity: {
         type: Sequelize.INTEGER,
         allowNull: false,
