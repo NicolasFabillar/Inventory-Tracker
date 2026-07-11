@@ -8,4 +8,12 @@ const getCurrentTimestamp = () => {
     return moment().format('YYYY-MM-DD h:mm:ss a');
 };
 
-module.exports = { formatTimestamp, getCurrentTimestamp };
+const getStartOfToday = () => {
+  return moment().startOf("day").toDate();
+};
+
+const getCurrentDate = () => {
+  return moment().toDate();
+};
+
+module.exports = { formatTimestamp, getCurrentTimestamp, getStartOfToday, getCurrentDate};

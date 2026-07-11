@@ -5,6 +5,8 @@ const isAuth = require("../../../middlewares/authorization");
 
 const {
     approveRefund,
+    findAllOrders,
+    findOrderById
 } = require("../../../controllers/admin/orders");
 
 const router = express.Router();
@@ -16,6 +18,16 @@ router.put('/:orderId/refund/approve',
     ],
     validation,
     approveRefund
+)
+
+router.get('/show-all', 
+    isAuth,
+    findAllOrders
+)
+
+router.get('/:orderId/search', 
+    isAuth,
+    findOrderById
 )
 
 module.exports = router;
