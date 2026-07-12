@@ -1,10 +1,13 @@
 const express = require("express");
 const { body } = require("express-validator");
 const validation = require("../../../middlewares/route-validation");
+const isAuth = require("../../../middlewares/authorization");
 
 const {
     accountLogin,
-    accountCreate
+    accountCreate,
+    changePassword,
+    changePasswordWithToken
 } = require("../../../controllers/allUsers/accounts");
 
 const router = express.Router();
@@ -40,6 +43,30 @@ router.post(
     ],
     validation,
     accountCreate
+);
+
+router.patch(
+    "/change-password",
+    isAuth,
+    [
+        body("oldPassword").notEmpty(),
+        body("newPassword").notEmpty(),
+        body("confirmNewPassword").notEmpty(),
+    ],
+    validation,
+    changePassword
+);
+
+router.patch(
+    "/change-password-token",
+    [
+        body("token").notEmpty(),
+        body("newPassword").notEmpty(),
+        body("confirmNewPassword").notEmpty(),
+        body("emailAddress").notEmpty(),
+    ],
+    validation,
+    changePasswordWithToken
 );
 
 module.exports = router;

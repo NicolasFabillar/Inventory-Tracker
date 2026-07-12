@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const connection = require("../connection/database");
 
-const CreateAccountTokens = connection.define("create_account_tokens", {
+const OneTimeTokens = connection.define("one-time-tokens", {
     id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
@@ -33,8 +33,8 @@ const CreateAccountTokens = connection.define("create_account_tokens", {
     }
 },
 {
-    tableName: "create_account_tokens",
+    tableName: "one-time-tokens",
     timestamps: true
 });
 
-module.exports = CreateAccountTokens;
+module.exports = OneTimeTokens;

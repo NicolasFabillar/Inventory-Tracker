@@ -165,7 +165,7 @@ exports.refundOrder = async (req, res, next) => {
                     product_id: item.id,
                     order_id: orderId,
                     quantity: {
-                    [Op.gte]: item.quantity,
+                        [Op.gte]: item.quantity,
                     },
                 },
                 include: [

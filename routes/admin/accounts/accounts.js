@@ -1,22 +1,24 @@
 const express = require("express");
 const { body } = require("express-validator");
 const validation = require("../../../middlewares/route-validation");
+const isAuth = require("../../../middlewares/authorization");
 
 const {
-    accountLogin,
+    showAllUsers,
+    findUserById,
 } = require("../../../controllers/admin/accounts");
 
 const router = express.Router();
 
-router.post(
-    "/login",
-    [
-        body("emailAddress").notEmpty().isEmail(),
-        body("password").notEmpty()
-    ],
-    validation,
-    accountLogin
-);
+router.get('/show-all', 
+    isAuth,
+    showAllUsers
+)
+
+router.get('/:userId/search', 
+    isAuth,
+    findUserById
+)
 
 
 module.exports = router;

@@ -1,6 +1,6 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const { Users, CreateAccountTokens} = require("../models/Associations")
+const { Users, OneTimeTokens} = require("../models/Associations")
 const {formatTimestamp, getCurrentTimestamp} = require("../util/formatTimestamp");
 const { Op } = require("sequelize");
 
@@ -12,7 +12,7 @@ passport.use(
     { usernameField: "emailAddress", passReqToCallback: true },
     async (req, emailAddress, password, done) => {
       try {
-        const tokenCheck = await CreateAccountTokens.findOne({
+        const tokenCheck = await OneTimeTokens.findOne({
           where: {
             token: req.body.token,
             email_address: emailAddress,
@@ -27,8 +27,6 @@ passport.use(
         }
         const currentTime = getCurrentTimestamp();
         const tokenExpiration = formatTimestamp(tokenCheck.expires_at)
-
-        console.log( tokenExpiration > currentTime)
 
         if (!tokenExpiration > currentTime) {
           return done(null, false, {

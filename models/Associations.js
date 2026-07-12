@@ -5,6 +5,7 @@ const OrderItems = require("./OrderItems");
 const Orders = require("./Orders");
 const Refunds = require("./Refunds");
 const ProductMovements = require("./ProductMovement");
+const OneTimeTokens = require("./OneTimeTokens");
 
 Users.hasMany(Products, {
     foreignKey: 'created_by',
@@ -124,5 +125,6 @@ module.exports = {
     OrderItems,
     Orders,
     Refunds,
-    ProductMovements
+    ProductMovements,
+    OneTimeTokens
 };
