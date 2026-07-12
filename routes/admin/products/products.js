@@ -9,6 +9,7 @@ const {
     deleteProduct,
     findAllProducts,
     findProductById,
+    findLowStockProducts,
 } = require("../../../controllers/admin/products");
 
 const router = express.Router();
@@ -57,6 +58,11 @@ router.get('/show-all',
 router.get('/:productId/search', 
     isAuth,
     findProductById
+)
+
+router.get('/low-stock', 
+    isAuth,
+    findLowStockProducts
 )
 
 module.exports = router;

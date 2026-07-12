@@ -2,7 +2,7 @@
 const { Products, Categories, ProductMovements, Users} = require("../../models/Associations")
 const errorHandler = require("../../util/errorHandler")
 const parseQueryParams = require("../../util/parseQueryParams")
-const { Op } = require("sequelize");
+const { Op, col, where: sequelizeWhere } = require("sequelize");
 
 exports.createProduct = async (req, res, next) => {
   const { userId, userRole } = req
@@ -178,7 +178,7 @@ exports.findAllProducts = async (req, res, next) => {
     const allProducts = await Products.findAll({
       where: {
         ...where,
-        status: req.query.status || true
+        status: req.query.status || "active"
       },
       limit,
       offset,
@@ -195,7 +195,7 @@ exports.findAllProducts = async (req, res, next) => {
             attributes: ["id", "name"]
         }
       ],
-      attributes: ["id", "name", "sku", "description", "quantity", "low_stock_threshold", "price"],
+      attributes: ["id", "name", "sku", "description", "quantity", "low_stock_threshold", "price", "status"],
     })
 
     return res.status(200).json({ status: true, allProducts })
@@ -232,6 +232,47 @@ exports.findProductById = async (req, res, next) => {
     }
 
     return res.status(200).json({ status: true, product })
+  } catch (err) {
+    next(err)
+  }
+}
+
+// Find all Products that are active or inactive
+exports.findLowStockProducts = async (req, res, next) => {
+  try {
+    const { where, limit, offset, order } = parseQueryParams(
+      req,
+      ["name", "quantity"],
+      ["name"]
+    )
+
+    const lowStockProducts = await Products.findAll({
+      where: {
+        ...where,
+        [Op.and]: [
+            sequelizeWhere(col("quantity"), Op.lte, col("low_stock_threshold"))
+        ],
+        status: "active"
+      },
+      limit,
+      offset,
+      order,
+      include: [
+        {
+            model: Users,
+            as: 'productCreator',
+            attributes: ["id", "first_name", "last_name"]
+        },
+        {
+            model: Categories,
+            as: 'category',
+            attributes: ["id", "name"]
+        }
+      ],
+      attributes: ["id", "name", "sku", "description", "quantity", "low_stock_threshold", "price"],
+    })
+
+    return res.status(200).json({ status: true, lowStockProducts })
   } catch (err) {
     next(err)
   }
