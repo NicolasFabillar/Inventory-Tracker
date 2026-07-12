@@ -22,11 +22,6 @@ exports.findAllProducts = async (req, res, next) => {
       order,
       include: [
         {
-            model: Users,
-            as: 'productCreator',
-            attributes: ["id", "first_name", "last_name"]
-        },
-        {
             model: Categories,
             as: 'category',
             attributes: ["id", "name"]
@@ -51,11 +46,6 @@ exports.findProductById = async (req, res, next) => {
       },
       include: [
         {
-            model: Users,
-            as: 'productCreator',
-            attributes: ["id", "first_name", "last_name"]
-        },
-        {
             model: Categories,
             as: 'category',
             attributes: ["id", "name"]
@@ -66,6 +56,34 @@ exports.findProductById = async (req, res, next) => {
 
     if (!product) {
       errorHandler("Product not found", 404)
+    }
+
+    return res.status(200).json({ status: true, product })
+  } catch (err) {
+    next(err)
+  }
+}
+
+exports.findProductBySKU = async (req, res, next) => {
+  const { sku } = req.params
+
+  try {
+    const product = await Products.findOne({
+      where: {
+        sku: sku,
+      },
+      include: [
+        {
+            model: Categories,
+            as: 'category',
+            attributes: ["id", "name"]
+        }
+      ],
+      attributes: ["id", "name", "sku", "description", "quantity", "low_stock_threshold", "price"],
+    })
+
+    if (!product) {
+      errorHandler("Product sku not found", 404)
     }
 
     return res.status(200).json({ status: true, product })

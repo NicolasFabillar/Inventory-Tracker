@@ -111,9 +111,14 @@ exports.approveRefund = async (req, res, next) => {
 
 // Find all Products that are active or inactive
 exports.findAllOrders = async (req, res, next) => {
+    const { userId, userRole } = req
     const {employeeId, startDate, endDate} = req.query;
 
     try {
+        if (userRole != "Admin") {
+            errorHandler("User is not an admin", 403)
+        }
+
         const from = startDate
             ? moment(startDate).startOf("day").toDate()
             : getStartOfToday();
@@ -289,6 +294,88 @@ exports.findOrderById = async (req, res, next) => {
 
     return res.status(200).json({ status: true, formattedOrder})
   } catch (err) {
+    next(err)
+  }
+}
+
+// Helper function for getting the total sales and refunds
+async function getPaymentMethodSummary(paymentMethod, employeeId, from, to) {
+    const sales = await Orders.sum("total_amount", {
+        where: {
+            payment_method: paymentMethod,
+            ...(employeeId && { employee_id: employeeId }),
+            createdAt: {
+                [Op.between]: [from, to],
+            },
+        }
+    });
+
+    const refunds = await Refunds.sum("refunded_amount", {
+        include: [{
+            model: Orders,
+            as: "refund",
+            attributes: [],
+            where: {
+                payment_method: paymentMethod,
+                ...(employeeId && { employee_id: employeeId }),
+                createdAt: {
+                    [Op.between]: [from, to],
+                },
+            }
+        }],
+        where: {
+            status: "approved"
+        }
+    });
+
+    return {
+        paymentMethod,
+        grossSales: Number(sales || 0),
+        refunds: Number(refunds || 0),
+        netSales: Number(sales || 0) - Number(refunds || 0)
+    };
+}
+
+exports.getSaleSummary = async (req, res, next) => {
+  const { userId, userRole } = req
+  const {employeeId, startDate, endDate} = req.query;
+
+  try {
+    if (userRole != "Admin") {
+        errorHandler("User is not an admin", 403)
+    }
+
+    const from = startDate
+        ? moment(startDate).startOf("day").toDate()
+        : getStartOfToday();
+
+    const to = endDate
+        ? moment(endDate).endOf("day").toDate()
+        : getCurrentDate();
+
+    const summary = await Promise.all([
+        getPaymentMethodSummary("cash", employeeId, from, to),
+        getPaymentMethodSummary("card", employeeId, from, to),
+        getPaymentMethodSummary("e-wallet", employeeId, from, to),
+    ]);
+
+    const total = summary.reduce(
+        (totals, item) => {
+            totals.grossSales += item.grossSales;
+            totals.refunds += item.refunds;
+            totals.netSales += item.netSales;
+
+            return totals;
+        },
+        {
+            grossSales: 0,
+            refunds: 0,
+            netSales: 0,
+        }
+    );
+
+    return res.status(200).json({ status: true, summary, total})
+  } catch (err) {  
     next(err)
   }
 }

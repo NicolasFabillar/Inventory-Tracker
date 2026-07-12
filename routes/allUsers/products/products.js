@@ -6,6 +6,7 @@ const isAuth = require("../../../middlewares/authorization");
 const {
     findAllProducts,
     findProductById,
+    findProductBySKU,
 } = require("../../../controllers/allUsers/products");
 
 const router = express.Router();
@@ -18,6 +19,11 @@ router.get('/show-all',
 router.get('/:productId/search', 
     isAuth,
     findProductById
+)
+
+router.get('/:sku/searchSKU', 
+    isAuth,
+    findProductBySKU
 )
 
 module.exports = router;
