@@ -14,11 +14,6 @@ router.use("/admin/products", adminProductsRoute);
 router.use("/admin/products/product-movement", adminProductMovementsRoute);
 router.use("/admin/orders", adminOrdersRoute);
 
-// customers
-const employeeAccountsRoute = require("./employee/accounts/accounts");
-
-router.use("/employee", employeeAccountsRoute);
-
 // all users
 const allAccountsRoute = require("./allUsers/accounts/accounts");
 const allOrdersRoute = require("./allUsers/orders/orders");
