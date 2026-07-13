@@ -1,0 +1,1451 @@
+{
+  "info": {
+    "_postman_id": "41c10559-8b51-4cab-aa47-5ecdd1070408",
+    "name": "Inventory Tracking",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "29116139"
+  },
+  "item": [
+    {
+      "name": "All Users",
+      "item": [
+        {
+          "name": "Accounts",
+          "item": [
+            {
+              "name": "Login",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"usernameOrEmail\": \"NicoNico\", //Takes username or email address\r\n    \"password\": \"Nico10002\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASEURL}}/api/v1/all/login",
+                  "host": [
+                    "{{BASEURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "all",
+                    "login"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Register",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"emailAddress\": \"nicos@gmail.com\",\r\n    \"firstName\": \"Nico\",\r\n    \"lastName\": \"Nico\",\r\n    \"token\": \"Token123@@\",\r\n    \"username\": \"NicoNico\",\r\n    \"phoneNo\": \"09191919191\",\r\n    \"password\": \"Nico10002\",\r\n    \"confirmPassword\": \"Nico10002\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASEURL}}/api/v1/all/register",
+                  "host": [
+                    "{{BASEURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "all",
+                    "register"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Me",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{TOKEN}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASEURL}}/api/v1/accounts/me",
+                  "host": [
+                    "{{BASEURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "accounts",
+                    "me"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Change Password",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{TOKEN}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"oldPassword\": \"Nico10002\",\r\n    \"newPassword\": \"Nico10003\",\r\n    \"confirmNewPassword\": \"Nico10003\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASEURL}}/api/v1/all/change-password",
+                  "host": [
+                    "{{BASEURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "all",
+                    "change-password"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Change Password with Token",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{TOKEN}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"token\": \"Banana-token\",\r\n    \"newPassword\": \"Nico10002\",\r\n    \"confirmNewPassword\": \"Nico10002\",\r\n    \"emailAddress\": \"nicos@gmail.com\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASEURL}}/api/v1/all/change-password-token",
+                  "host": [
+                    "{{BASEURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "all",
+                    "change-password-token"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Orders",
+          "item": [
+            {
+              "name": "Create Order",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{TOKEN}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"customerName\": \"Erika\",\r\n    \"orderItems\": [\r\n        {\r\n            \"id\": \"a12f2296-10e0-460b-a91b-13490de49fac\",\r\n            \"quantity\": 2\r\n        },\r\n        {\r\n            \"id\": \"306fc3cd-31fb-4013-9275-2a9848b8599b\",\r\n            \"quantity\": 3\r\n        }\r\n    ]\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASEURL}}/api/v1/all/orders/create",
+                  "host": [
+                    "{{BASEURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "all",
+                    "orders",
+                    "create"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Pay Order",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{TOKEN}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"paymentMethod\": \"cash\",   //   Options:  \"cash\", \"card\", \"e-wallet\"                                        \r\n    \"amountTendered\": \"6000\" // Optional, leave it empty if the payment method is not cash\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASEURL}}/api/v1/all/orders/:orderId/payOrder",
+                  "host": [
+                    "{{BASEURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "all",
+                    "orders",
+                    ":orderId",
+                    "payOrder"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orderId",
+                      "value": "f9e261b8-17cf-482d-bf30-ff42f2e47247"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Refund Order",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{TOKEN}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"customerName\": \"Erika\",\r\n    \"refundReason\": \"Does not want it anymore\",\r\n    \"refundItems\": [\r\n        {\r\n            \"id\": \"a12f2296-10e0-460b-a91b-13490de49fac\",\r\n            \"quantity\": 1\r\n        },\r\n        {\r\n            \"id\": \"306fc3cd-31fb-4013-9275-2a9848b8599b\",\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASEURL}}/api/v1/all/orders/:orderId/refund",
+                  "host": [
+                    "{{BASEURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "all",
+                    "orders",
+                    ":orderId",
+                    "refund"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orderId",
+                      "value": "f9e261b8-17cf-482d-bf30-ff42f2e47247"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Refund Amount",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{TOKEN}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASEURL}}/api/v1/all/orders/:orderId/refundAmount",
+                  "host": [
+                    "{{BASEURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "all",
+                    "orders",
+                    ":orderId",
+                    "refundAmount"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orderId",
+                      "value": "f9e261b8-17cf-482d-bf30-ff42f2e47247"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Products",
+          "item": [
+            {
+              "name": "Show All Products",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{TOKEN}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASEURL}}/api/v1/all/products/show-all?page=1&limit=10&sortBy=name&order=ASC",
+                  "host": [
+                    "{{BASEURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "all",
+                    "products",
+                    "show-all"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "name",
+                      "description": "name, quantity"
+                    },
+                    {
+                      "key": "order",
+                      "value": "ASC",
+                      "description": "DESC, ASC"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Find Product by ID",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{TOKEN}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASEURL}}/api/v1/all/products/:productId/search",
+                  "host": [
+                    "{{BASEURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "all",
+                    "products",
+                    ":productId",
+                    "search"
+                  ],
+                  "variable": [
+                    {
+                      "key": "productId",
+                      "value": "a12f2296-10e0-460b-a91b-13490de49fac"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Accounts",
+          "item": [
+            {
+              "name": "Show All Users",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{TOKEN}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASEURL}}/api/v1/admin/show-all?page=1&limit=10&sortBy=&order=ASC&search=",
+                  "host": [
+                    "{{BASEURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "show-all"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "",
+                      "description": "\"role\", \"first_name\", \"last_name\""
+                    },
+                    {
+                      "key": "order",
+                      "value": "ASC",
+                      "description": "DESC, ASC"
+                    },
+                    {
+                      "key": "search",
+                      "value": "",
+                      "description": "Search by first name, last name or role"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Find User by ID",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{TOKEN}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASEURL}}/api/v1/admin/:userId/search",
+                  "host": [
+                    "{{BASEURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    ":userId",
+                    "search"
+                  ],
+                  "variable": [
+                    {
+                      "key": "userId",
+                      "value": "bf2c12a0-4d4b-4d0d-a293-1fae1acca27c"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Products",
+          "item": [
+            {
+              "name": "Product Movements",
+              "item": [
+                {
+                  "name": "Show All Product Movements",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{TOKEN}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{BASEURL}}/api/v1/admin/products/product-movement/:productId/show-all?page=1&limit=10&sortBy=createdAt&order=ASC&search=&startDate=2026-07-05&endDate=2026-07-13&employeeId=bf2c12a0-4d4b-4d0d-a293-1fae1acca27c",
+                      "host": [
+                        "{{BASEURL}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "admin",
+                        "products",
+                        "product-movement",
+                        ":productId",
+                        "show-all"
+                      ],
+                      "query": [
+                        {
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "key": "limit",
+                          "value": "10"
+                        },
+                        {
+                          "key": "sortBy",
+                          "value": "createdAt",
+                          "description": "createdAt, quantity"
+                        },
+                        {
+                          "key": "order",
+                          "value": "ASC",
+                          "description": "DESC, ASC"
+                        },
+                        {
+                          "key": "search",
+                          "value": "",
+                          "description": "// You can only search reason \"sale\", \"restock\", \"correction\", \"refund\""
+                        },
+                        {
+                          "key": "startDate",
+                          "value": "2026-07-05",
+                          "description": "// Optional if you need to find all product movement starting a specific date"
+                        },
+                        {
+                          "key": "endDate",
+                          "value": "2026-07-13",
+                          "description": "// Optional if you need to find all product movement ending a specific date"
+                        },
+                        {
+                          "key": "employeeId",
+                          "value": "bf2c12a0-4d4b-4d0d-a293-1fae1acca27c",
+                          "description": "// Optional, if you need product movements made by a user"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "productId",
+                          "value": "a12f2296-10e0-460b-a91b-13490de49fac"
+                        }
+                      ]
+                    },
+                    "description": "## Show All Product Movements\n\nRetrieves a paginated list of all inventory movement records for a specific product. Each movement entry captures changes in stock quantity, the reason for the change, and who performed the action. This endpoint is useful for auditing stock history and tracking inventory adjustments over time.\n\n---\n\n### HTTP Method & URL\n\n```\nGET {{BASEURL}}/api/v1/admin/products/product-movement/:productId/show-all\n\n ```\n\n---\n\n### Authentication\n\nThis endpoint requires a **Bearer Token**. The token is sourced from the `{{TOKEN}}` environment variable and must be included in the `Authorization` header.\n\n```\nAuthorization: Bearer {{TOKEN}}\n\n ```\n\n---\n\n### Path Variables\n\n| Variable | Type | Description |\n| --- | --- | --- |\n| `productId` | UUID (string) | The unique identifier of the product whose movement history is being retrieved. Example: `a12f2296-10e0-460b-a91b-13490de49fac` |\n\n---\n\n### Query Parameters\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| `page` | integer | No | The page number for pagination. Defaults to `1`. |\n| `limit` | integer | No | The number of records to return per page. Defaults to `10`. |\n| `sortBy` | string | No | The field to sort results by. Example: `createdAt`. |\n| `order` | string | No | Sort direction. Accepted values: `ASC` or `DESC`. |\n| `startDate` | string (date) | No | Filters movements from this date onward. Format: `YYYY-MM-DD`. Example: `2026-07-05`. This can be empty and it will default to the start of the current date |\n| `search` | string | No | Filters movements by a search keyword. Can be empty. |\n| `startDate` | string (date) | No | Filters movements starting this date. Format: `YYYY-MM-DD`. Example: `2026-07-13`. Can be empty and will default to the current date. |\n| `endDate` | string (date) | No | Filters movements up to this date. Format: `YYYY-MM-DD`. Example: `2026-07-13`. Can be empty and will default to the current date. |\n| `employeeId` | UUID (string) | No | Filters movements performed by a specific employee. Example: `bf2c12a0-4d4b-4d0d-a293-1fae1acca27c`. Can Be empty |\n\n---\n\n### Response Structure\n\nA successful request returns a `200 OK` response with the following JSON structure:\n\n``` json\n{\n  \"status\": true,\n  \"product\": {\n    \"id\": \"string (UUID)\",\n    \"name\": \"string\",\n    \"sku\": \"string\",\n    \"description\": \"string\",\n    \"quantity\": \"integer — current stock quantity\",\n    \"low_stock_threshold\": \"integer\",\n    \"price\": \"string (decimal)\",\n    \"productCreator\": {\n      \"id\": \"string (UUID)\",\n      \"first_name\": \"string\",\n      \"last_name\": \"string\"\n    },\n    \"category\": {\n      \"id\": \"string (UUID)\",\n      \"name\": \"string\"\n    }\n  },\n  \"productMovements\": [\n    {\n      \"id\": \"string (UUID)\",\n      \"change_quantity\": \"integer — quantity added or removed\",\n      \"quantity_after_change\": \"integer — stock level after the movement\",\n      \"reason\": \"string — e.g. refund, sale, adjustment\",\n      \"description\": \"string — additional notes on the movement\",\n      \"createdAt\": \"string (ISO 8601 datetime)\",\n      \"performedBy\": {\n        \"id\": \"string (UUID)\",\n        \"first_name\": \"string\",\n        \"last_name\": \"string\"\n      },\n      \"changedProduct\": {\n        \"id\": \"string (UUID)\",\n        \"name\": \"string\"\n      }\n    }\n  ]\n}\n\n ```\n\n---"
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "Create Product",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{TOKEN}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\": \"PVC Pipe 2in x 3m\",\r\n    \"sku\": \"631581131016\",\r\n    \"categoryId\": \"1917f9a0-81fd-4fd1-94fc-4dd1472d8157\",\r\n    \"description\": \"Schedule 40 PVC pipe\",\r\n    \"quantity\": 100,\r\n    \"lowStockThreshold\": 20,\r\n    \"price\": 280\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASEURL}}/api/v1/admin/products/create",
+                  "host": [
+                    "{{BASEURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "products",
+                    "create"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update Product",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{TOKEN}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\": \"Gas Can\",                                               \r\n    \"sku\": \"SCEP-SMART-1GAL-RED\",\r\n    \"categoryId\": \"1917f9a0-81fd-4fd1-94fc-4dd1472d8157\",\r\n    \"description\": \"1 Gallon gas can, color red\",\r\n    \"quantity\": 60,\r\n    \"lowStockThreshold\": 10,\r\n    \"price\": 100,  \r\n    \"editReason\": \"Correction for the stock added, wrongly input of the stock\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASEURL}}/api/v1/admin/products/:productId/update",
+                  "host": [
+                    "{{BASEURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "products",
+                    ":productId",
+                    "update"
+                  ],
+                  "variable": [
+                    {
+                      "key": "productId",
+                      "value": "84e4aed0-6822-4351-8549-4ba56f47f84f"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Show All Product",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{TOKEN}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASEURL}}/api/v1/admin/products/show-all?page=1&limit=10&sortBy=name&order=ASC&search=&status=active",
+                  "host": [
+                    "{{BASEURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "products",
+                    "show-all"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "name",
+                      "description": "name, quantity"
+                    },
+                    {
+                      "key": "order",
+                      "value": "ASC",
+                      "description": "DESC, ASC"
+                    },
+                    {
+                      "key": "search",
+                      "value": "",
+                      "description": "// search by name of the product"
+                    },
+                    {
+                      "key": "status",
+                      "value": "active",
+                      "description": "\"active\", \"inactive\", \"discontinued\""
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Find Product by ID",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{TOKEN}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASEURL}}/api/v1/admin/products/:productId/search",
+                  "host": [
+                    "{{BASEURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "products",
+                    ":productId",
+                    "search"
+                  ],
+                  "variable": [
+                    {
+                      "key": "productId",
+                      "value": "84e4aed0-6822-4351-8549-4ba56f47f84f"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Product",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{TOKEN}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{BASEURL}}/api/v1/admin/products/:productId/delete",
+                  "host": [
+                    "{{BASEURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "products",
+                    ":productId",
+                    "delete"
+                  ],
+                  "variable": [
+                    {
+                      "key": "productId",
+                      "value": "2d828e02-0e90-4e7c-a32a-e18a8fec5d87"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Show All Low Stock Products",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{TOKEN}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASEURL}}/api/v1/admin/products/low-stock?page=1&limit=10&sortBy=name&order=ASC",
+                  "host": [
+                    "{{BASEURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "products",
+                    "low-stock"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "name",
+                      "description": "name, quantity"
+                    },
+                    {
+                      "key": "order",
+                      "value": "ASC",
+                      "description": "DESC, ASC"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Categories",
+          "item": [
+            {
+              "name": "Create Category",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{TOKEN}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\": \"Gadgets\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASEURL}}/api/v1/admin/categories/create",
+                  "host": [
+                    "{{BASEURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "categories",
+                    "create"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update Category",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{TOKEN}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Operating Category\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASEURL}}/api/v1/admin/categories/:categoryID/update",
+                  "host": [
+                    "{{BASEURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "categories",
+                    ":categoryID",
+                    "update"
+                  ],
+                  "variable": [
+                    {
+                      "key": "categoryID",
+                      "value": "1917f9a0-81fd-4fd1-94fc-4dd1472d8157"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Show All Category",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{TOKEN}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASEURL}}/api/v1/admin/categories/show-all?page=1&limit=10&sortBy=name&order=DESC",
+                  "host": [
+                    "{{BASEURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "categories",
+                    "show-all"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "name",
+                      "description": "name"
+                    },
+                    {
+                      "key": "order",
+                      "value": "DESC",
+                      "description": "DESC, ASC"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Orders",
+          "item": [
+            {
+              "name": "Approve Refund",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{TOKEN}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"status\": \"approved\"   //   Options:  \"approved\" or \"rejected\"                                        \r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASEURL}}/api/v1/admin/orders/:orderId/refund/approve",
+                  "host": [
+                    "{{BASEURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "orders",
+                    ":orderId",
+                    "refund",
+                    "approve"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orderId",
+                      "value": "f9e261b8-17cf-482d-bf30-ff42f2e47247"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Show All Orders",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{TOKEN}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASEURL}}/api/v1/admin/orders/show-all?page=1&limit=10&sortBy=createdAt&order=ASC&startDate=2026-07-05&search=",
+                  "host": [
+                    "{{BASEURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "orders",
+                    "show-all"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "createdAt",
+                      "description": "createdAt, total_amount"
+                    },
+                    {
+                      "key": "order",
+                      "value": "ASC",
+                      "description": "DESC, ASC"
+                    },
+                    {
+                      "key": "employeeId",
+                      "value": "bf2c12a0-4d4b-4d0d-a293-1fae1acca27c",
+                      "description": "Optional if you need to see all orders created by an employee",
+                      "disabled": true
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "2026-07-05",
+                      "description": "Optional if you need to filter by date"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": null,
+                      "description": "Optional if you need to filter by date",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "search",
+                      "value": "",
+                      "description": "search by status or payment method here"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Find Order By Id",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{TOKEN}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASEURL}}/api/v1/admin/orders/:orderId/search",
+                  "host": [
+                    "{{BASEURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "orders",
+                    ":orderId",
+                    "search"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orderId",
+                      "value": "f9e261b8-17cf-482d-bf30-ff42f2e47247"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Sale Summary",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{TOKEN}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASEURL}}/api/v1/admin/orders/sales-summary?startDate=2026-07-05",
+                  "host": [
+                    "{{BASEURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "orders",
+                    "sales-summary"
+                  ],
+                  "query": [
+                    {
+                      "key": "employeeId",
+                      "value": "bf2c12a0-4d4b-4d0d-a293-1fae1acca27c",
+                      "description": "Optional if you need to see total sale an employee",
+                      "disabled": true
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "2026-07-05",
+                      "description": "Optional if you need to filter by date"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "",
+                      "description": "Optional if you need to filter by date",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
